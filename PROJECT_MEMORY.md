@@ -62,9 +62,14 @@
 
 - Endpoint: `POST /api/lead`.
 - Implementation: `functions/api/lead.ts`.
+- GitHub Pages build posts directly to the existing Cloudflare Worker relay:
+  `https://sup-vk-cloudflare-bot.pavel-galkin-1985.workers.dev/public-site-lead`.
+- The Worker uses the existing VK bot Telegram secrets and returns success only after Telegram accepts the message.
 - Secrets:
   - `TELEGRAM_BOT_TOKEN`
   - `TELEGRAM_CHAT_ID`
+  - `SITE_LEAD_RELAY_URL`
+  - `SITE_LEAD_RELAY_SECRET`
 - Never hardcode secrets.
 - Required fields: name, phone, service, people.
 - Honeypot field: `website`.

@@ -1,6 +1,8 @@
 type Env = {
   TELEGRAM_BOT_TOKEN?: string;
   TELEGRAM_CHAT_ID?: string;
+  SITE_LEAD_RELAY_URL?: string;
+  SITE_LEAD_RELAY_SECRET?: string;
 };
 
 type PagesContext = {
@@ -77,10 +79,6 @@ export const onRequestPost = async ({ request, env }: PagesContext) => {
     return json({ ok: false, message: 'Заполните имя, телефон, услугу и количество человек.' }, 400);
   }
 
-  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
-    return json({ ok: false, message: 'Не удалось отправить заявку.' }, 500);
-  }
-
   const text = [
     '🌊 <b>Новая заявка: Мой солнечный SUP</b>',
     '',
@@ -96,6 +94,32 @@ export const onRequestPost = async ({ request, env }: PagesContext) => {
     '<b>Источник:</b> сайт',
     `<b>Контакты проекта:</b> ${escapeHtml(projectContacts)}`,
   ].join('\n');
+
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
+    if (!env.SITE_LEAD_RELAY_URL || !env.SITE_LEAD_RELAY_SECRET) {
+      return json({ ok: false, message: 'Не удалось отправить заявку.' }, 500);
+    }
+
+    try {
+      const relayResponse = await fetch(env.SITE_LEAD_RELAY_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${env.SITE_LEAD_RELAY_SECRET}`,
+        },
+        body: JSON.stringify(lead),
+      });
+      const relayData = (await relayResponse.json()) as { ok?: boolean };
+
+      if (!relayResponse.ok || relayData.ok !== true) {
+        return json({ ok: false, message: 'Не удалось отправить заявку.' }, 502);
+      }
+
+      return json({ ok: true, message: 'Заявка отправлена.' });
+    } catch {
+      return json({ ok: false, message: 'Не удалось отправить заявку.' }, 502);
+    }
+  }
 
   try {
     const telegramResponse = await fetch(

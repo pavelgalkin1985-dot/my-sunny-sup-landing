@@ -161,6 +161,14 @@ GitHub Actions runs `npm ci`, `npm run build`, uploads `dist/`, and deploys it t
 Public assets from `public/images` are referenced through `import.meta.env.BASE_URL`,
 so image URLs also receive the GitHub Pages prefix.
 
+For GitHub Pages, the lead form posts to the Cloudflare Worker endpoint:
+
+```text
+https://sup-vk-cloudflare-bot.pavel-galkin-1985.workers.dev/public-site-lead
+```
+
+The Worker uses the existing VK bot Telegram secrets and returns `ok:true` only after Telegram accepts the message.
+
 ## Cloudflare Pages Base Path
 
 Cloudflare Pages normally serves the site from the domain root. For Cloudflare, set:
@@ -173,4 +181,11 @@ or use:
 
 ```bash
 npm run build:cloudflare
+```
+
+The Pages Function `functions/api/lead.ts` can also use the relay mode with:
+
+```text
+SITE_LEAD_RELAY_URL=
+SITE_LEAD_RELAY_SECRET=
 ```

@@ -41,6 +41,7 @@ Functions: functions/api/lead.ts
 - `functions/api/lead.ts` — Cloudflare Pages Function for Telegram leads.
 - `IMAGE_MANIFEST.md` — image description and usage map.
 - `PROJECT_MEMORY.md` — brand, pricing, contacts, and implementation memory.
+- GitHub Pages lead form uses `VITE_LEAD_API_URL` to post to the existing Cloudflare Worker relay.
 
 ## Hard Rules
 
@@ -50,6 +51,7 @@ Functions: functions/api/lead.ts
 - Every image from `public/images` must be displayed on the site and documented in `IMAGE_MANIFEST.md`.
 - Do not hardcode Telegram secrets.
 - Keep `/api/lead` success gated by Telegram API `ok:true`.
+- Keep Worker relay success gated by Telegram API `ok:true`.
 - Keep `.env` and local env files ignored.
 - Do not commit or push until the user explicitly says to do so.
 - Use `import.meta.env.BASE_URL` for public asset paths so GitHub Pages subpath deploys work.

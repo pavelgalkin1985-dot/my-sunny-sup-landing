@@ -20,6 +20,7 @@ const PHONE_HREF = 'tel:+79636928378';
 const MAX_PHONE_DISPLAY = '8 (999) 655-80-43';
 const MAX_PHONE_HREF = 'tel:+79996558043';
 const VK_URL = 'https://vk.com/my_sup_sun_lazarevskoye';
+const LEAD_API_URL = import.meta.env.VITE_LEAD_API_URL || '/api/lead';
 const TELEGRAM_CONTACT_HREF =
   'https://t.me/share/url?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20SUP-%D0%BF%D1%80%D0%BE%D0%B3%D1%83%D0%BB%D0%BA%D1%83.';
 
@@ -190,7 +191,7 @@ function App() {
     setMessage('');
 
     try {
-      const response = await fetch('/api/lead', {
+      const response = await fetch(LEAD_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
