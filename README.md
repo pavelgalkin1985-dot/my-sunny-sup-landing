@@ -149,3 +149,28 @@ git branch -M main
 git remote add origin <GITHUB_REPO_URL>
 git push -u origin main
 ```
+
+## GitHub Pages
+
+GitHub Pages serves this repository under `/my-sunny-sup-landing/`.
+The default Vite build uses `base: /my-sunny-sup-landing/`.
+
+Deploy is handled by `.github/workflows/deploy-pages.yml`: after push to `main`,
+GitHub Actions runs `npm ci`, `npm run build`, uploads `dist/`, and deploys it to Pages.
+
+Public assets from `public/images` are referenced through `import.meta.env.BASE_URL`,
+so image URLs also receive the GitHub Pages prefix.
+
+## Cloudflare Pages Base Path
+
+Cloudflare Pages normally serves the site from the domain root. For Cloudflare, set:
+
+```text
+VITE_BASE_PATH=/
+```
+
+or use:
+
+```bash
+npm run build:cloudflare
+```

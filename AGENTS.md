@@ -15,6 +15,14 @@ npm run build
 npm run preview
 ```
 
+GitHub Pages:
+
+```bash
+npm run build
+```
+
+Default Vite base is `/my-sunny-sup-landing/` for GitHub Pages. For Cloudflare root deploys, set `VITE_BASE_PATH=/` or run `npm run build:cloudflare`.
+
 Cloudflare Pages:
 
 ```text
@@ -44,6 +52,7 @@ Functions: functions/api/lead.ts
 - Keep `/api/lead` success gated by Telegram API `ok:true`.
 - Keep `.env` and local env files ignored.
 - Do not commit or push until the user explicitly says to do so.
+- Use `import.meta.env.BASE_URL` for public asset paths so GitHub Pages subpath deploys work.
 
 ## Contacts
 

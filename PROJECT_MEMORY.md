@@ -77,6 +77,8 @@ Every image in `public/images` must be represented in `src/data/images.ts`, docu
 
 Important rule: photos and designed cards must not be cropped. Use `.image-frame` and `object-fit: contain` for service cards, gallery, map, logo, yoga card, and other important image content. Decorative hero background may use cover because the same image is also shown fully in the gallery.
 
+GitHub Pages serves the site under `/my-sunny-sup-landing/`, so public image paths must go through `import.meta.env.BASE_URL`. Cloudflare root deploys should set `VITE_BASE_PATH=/`.
+
 Current count: 14 images, including `public/images/cards/card-yoga.jpg`.
 
 ## Yoga Card

@@ -5,7 +5,9 @@ export type SiteImage = {
   frame: 'vertical' | 'horizontal' | 'square' | 'wide';
 };
 
-const imagePath = (fileName: string) => `/images/${fileName}`;
+export const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
+
+const imagePath = (fileName: string) => asset(`images/${fileName}`);
 
 export const images = {
   instructor: {
