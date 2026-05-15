@@ -4,5 +4,5 @@ import { env } from 'node:process';
 
 export default defineConfig({
   plugins: [react()],
-  base: env.VITE_BASE_PATH || '/my-sunny-sup-landing/',
+  base: env.VITE_BASE_PATH || '/',
 });
