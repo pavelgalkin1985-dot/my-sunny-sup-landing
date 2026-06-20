@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mysupsun.ru/sitemap.xml
+Host: mysupsun.ru

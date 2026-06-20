@@ -32,11 +32,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
       - name: Build
         env:
           VITE_LEAD_API_URL: https://sup-vk-cloudflare-bot.pavel-galkin-1985.workers.dev/public-site-lead
           VITE_BASE_PATH: /
         run: npm run build
+
+      - name: Prerender static HTML
+        run: npm run prerender
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
