@@ -1,61 +1,191 @@
-# Егине Унанян Landing
+# Мой солнечный SUP
 
-MVP skeleton for a static one-page personal site for Егине Левоновна Унанян, a врач-терапевт, психиатр и психолог.
+Лендинг SUP-прогулок, проката сапбордов, занятий с инструктором, йоги на SUP, семейных прогулок и фотосъёмки в Лазаревском / Сочи у пляжа “Морской бриз”.
 
-## Commands
+## Контакты
+
+- Основной телефон и Telegram: `8 (963) 692-83-78`
+- MAX: `8 (999) 655-80-43`
+- VK: `https://vk.com/my_sup_sun_lazarevskoye`
+- Адрес для такси: `ул. Одоевского, 93А`
+
+## Стек
+
+- Vite
+- React
+- TypeScript
+- CSS без UI-библиотек
+- Cloudflare Pages Functions для `/api/lead`
+
+## Запуск локально
 
 ```bash
 npm install
 npm run dev
-npm run build
-npm run preview
 ```
 
-TypeScript check:
+Обычно Vite откроется на:
+
+```text
+http://127.0.0.1:5173/
+```
+
+## Сборка и проверка
 
 ```bash
 npm run typecheck
+npm run lint
+npm run build
 ```
 
-Lint:
+Preview:
 
 ```bash
-npm run lint
+npm run preview
 ```
 
-## Structure
+Результат сборки:
 
-- `src/App.tsx` - page layout and section rendering.
-- `src/data/siteContent.ts` - site text, section cards, image metadata.
-- `src/data/contacts.ts` - messenger links and first-message text. Replace TODO placeholders before launch.
-- `src/styles.css` - visual system and responsive layout.
-- `public-yegine/images/yegine/` - selected portrait assets for the MVP and the only public asset directory copied into the production build.
-- `.github/workflows/deploy-pages.yml` - GitHub Pages build/deploy workflow.
+```text
+dist/
+```
+
+## Структура сайта
+
+1. Header и контакты.
+2. Hero с живым CSS-солнцем.
+3. Карточки услуг.
+4. Групповые прогулки с инструктором.
+5. Раздел для новичков.
+6. Утренняя и вечерняя прогулки.
+7. Прокат SUP-досок.
+8. Занятие с инструктором.
+9. Йога на SUP с отдельной карточкой.
+10. Безопасность.
+11. Семейный формат.
+12. “Поколение на волне” как художественный образ.
+13. Фото на море.
+14. Цены.
+15. Галерея всех изображений.
+16. Как нас найти.
+17. Форма заявки.
+18. Footer.
+
+## Изображения
+
+Все изображения лежат в:
+
+```text
+public/images/
+```
+
+Правило проекта: изображения нельзя резать. Важные карточки, карта, логотип и галерея показываются полностью через `object-fit: contain` и `.image-frame`.
+
+Подробный манифест:
+
+```text
+IMAGE_MANIFEST.md
+```
+
+Сейчас используется 14 изображений, включая `public/images/cards/card-yoga.jpg`.
+
+## Форма заявки
+
+Форма отправляет `POST /api/lead`. Серверная функция:
+
+```text
+functions/api/lead.ts
+```
+
+Функция:
+
+- валидирует имя, телефон, услугу и количество человек;
+- проверяет honeypot-поле `website`;
+- отправляет заявку в Telegram Bot API;
+- возвращает `ok:true` только если Telegram API вернул `ok:true`;
+- добавляет контакты проекта в Telegram-сообщение;
+- не показывает пользователю технические детали ошибки.
+
+## Секреты
+
+Секреты не хранятся в репозитории. Для примера см. `.env.example`.
+
+В Cloudflare Pages настройте:
+
+```text
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+```
+
+Путь:
+
+```text
+Cloudflare Pages → Settings → Environment variables
+```
+
+## Деплой на Cloudflare Pages
+
+1. Запушьте проект в GitHub.
+2. Создайте Cloudflare Pages project из GitHub-репозитория.
+3. Укажите:
+
+```text
+Framework preset: Vite
+Build command: npm run build
+Output directory: dist
+```
+
+4. Добавьте `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`.
+5. Запустите deploy.
+
+Cloudflare автоматически подхватит Pages Function из `functions/api/lead.ts`.
+
+## Первый push в GitHub
+
+```bash
+git add .
+git commit -m "Initial My Sunny SUP landing"
+git branch -M main
+git remote add origin <GITHUB_REPO_URL>
+git push -u origin main
+```
 
 ## GitHub Pages
 
-The Vite base path is controlled through `VITE_BASE_PATH`.
+GitHub Pages serves this repository under `/my-sunny-sup-landing/`.
+The default Vite build uses `base: /my-sunny-sup-landing/`.
 
-For a root deploy:
+Deploy is handled by `.github/workflows/deploy-pages.yml`: after push to `main`,
+GitHub Actions runs `npm ci`, `npm run build`, uploads `dist/`, and deploys it to Pages.
 
-```bash
-VITE_BASE_PATH=/ npm run build
+Public assets from `public/images` are referenced through `import.meta.env.BASE_URL`,
+so image URLs also receive the GitHub Pages prefix.
+
+For GitHub Pages, the lead form posts to the Cloudflare Worker endpoint:
+
+```text
+https://sup-vk-cloudflare-bot.pavel-galkin-1985.workers.dev/public-site-lead
 ```
 
-For a repository subpath deploy, set the repository path:
+The Worker uses the existing VK bot Telegram secrets and returns `ok:true` only after Telegram accepts the message.
 
-```bash
-VITE_BASE_PATH=/repository-name/ npm run build
+## Cloudflare Pages Base Path
+
+Cloudflare Pages normally serves the site from the domain root. For Cloudflare, set:
+
+```text
+VITE_BASE_PATH=/
 ```
 
-The GitHub Actions workflow derives the Pages base path from the repository name: `/${{ github.event.repository.name }}/`.
+or use:
 
-The project intentionally uses `publicDir: 'public-yegine'` in `vite.config.ts` so legacy files that still exist in `public/` are not copied into the deploy artifact.
+```bash
+npm run build:cloudflare
+```
 
-## TODO Before Launch
+The Pages Function `functions/api/lead.ts` can also use the relay mode with:
 
-- Replace Telegram, WhatsApp, and VK placeholders in `src/data/contacts.ts`.
-- Replace the canonical URL placeholder in `index.html`.
-- Confirm whether the site will deploy as a repository Pages site or from a custom/root domain.
-- Add real reviews and video only after permission from patients.
-- Add confirmed legal, licensing, price, address, or phone details only after the client provides them.
+```text
+SITE_LEAD_RELAY_URL=
+SITE_LEAD_RELAY_SECRET=
+```
