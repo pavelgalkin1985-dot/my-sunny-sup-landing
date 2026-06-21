@@ -1,26 +1,24 @@
 # IMAGE_MANIFEST.md
 
-Все изображения лежат в `public/images` и подключаются на сайте путями вида `/images/...`.
+The therapist landing page intentionally uses 2 key portrait photos to keep the design calm and avoid repeating imagery.
 
-Текущее количество: **14 изображений**.
+Important imagery is displayed inside `.image-frame` with `object-fit: contain` so the subject is not cropped.
 
-Правило отображения: важные изображения не режутся. Карточки услуг, карта, логотип, галерея, новая карточка йоги и основные визуальные блоки показываются полностью через `.image-frame` и `object-fit: contain`. Декоративный hero-фон может использовать cover, потому что это же изображение дополнительно показано полностью в галерее.
+| File | Description | Site usage |
+| --- | --- | --- |
+| `public-yegine/images/yegine/yegine-hero.png` | Егине Левоновна Унанян seated by a window in a dark suit. | Hero portrait and Open Graph image. |
+| `public-yegine/images/yegine/yegine-about.jpg` | Егине Левоновна Унанян holding books in a soft interior. | About section portrait. |
 
-| Файл | Описание | Где используется |
-|---|---|---|
-| `public/images/ChatGPT Image 12 мая 2026 г., 22_28_07.png` | SUP для новичков с инструктором. | Карточка услуги “Занятие с инструктором”, секция “Индивидуальное занятие с инструктором”, галерея. |
-| `public/images/ChatGPT Image 12 мая 2026 г., 22_39_13.png` | Вечерняя прогулка на сапборде у моря. | Карточка “Вечерняя прогулка”, блок утро/вечер, галерея. |
-| `public/images/ChatGPT Image 12 мая 2026 г., 22_44_35.png` | Утренняя SUP-прогулка в Лазаревском. | Карточка “Утренняя прогулка”, блок утро/вечер, галерея. |
-| `public/images/ChatGPT Image 12 мая 2026 г., 23_33_48.png` | Панорама SUP-досок у пляжа Морской бриз. | Hero как декоративный фон, Open Graph image, галерея полностью через contain. |
-| `public/images/ChatGPT Image 13 мая 2026 г., 00_22_44.png` | Семейная прогулка на сапбордах. | Галерея; поддерживает семейный формат. |
-| `public/images/ChatGPT Image 13 мая 2026 г., 00_32_54.png` | Групповая сап-прогулка для друзей. | Галерея; поддерживает групповой формат. |
-| `public/images/ChatGPT Image 13 мая 2026 г., 00_36_24.png` | “Поколение на волне” — художественный образ семейной связи с морем. | Отдельный блок “Поколение на волне”, галерея. Не является отдельной услугой. |
-| `public/images/ChatGPT Image 13 мая 2026 г., 00_53_09.png` | Семейная прогулка с ребёнком и питомцем. | Секция “Можно с семьёй, ребёнком и питомцем”, галерея. |
-| `public/images/ChatGPT Image 13 мая 2026 г., 01_06_57.png` | Карта маршрута до пляжа “Морской бриз”. | Секция “Как нас найти”, галерея. |
-| `public/images/ChatGPT Image 13 мая 2026 г., 01_13_05.png` | Логотип MY SUPSUN с орлом на SUP-доске. | Header, hero, форма заявки, footer, favicon, manifest icon, галерея. |
-| `public/images/ChatGPT Image 13 мая 2026 г., 01_31_54.png` | Прокат SUP-досок в Лазаревском. | Карточка “Прокат SUP”, секция “Прокат SUP-доски”, галерея. |
-| `public/images/ChatGPT Image 13 мая 2026 г., 01_39_57.png` | Романтическая прогулка на сапборде у моря. | Карточка “Фото на море”, секция “Фото на память”, галерея. |
-| `public/images/Без названия (1).png` | Реальная групповая прогулка у побережья Лазаревского. | Секция “Групповые SUP-прогулки с инструктором”, галерея. |
-| `public/images/cards/card-yoga.jpg` | Йога на SUP на Чёрном море. | Карточка “Йога на SUP”, секция “Йога на SUP”, галерея. |
+Source files provided by the client:
 
-Подтверждение: все изображения из `public/images` отображаются на сайте хотя бы один раз.
+- `C:/Users/Admin/Downloads/фотографии и дизайн Егине/photo_2026-06-15_09-35-04.jpg`
+- `C:/Users/Admin/Downloads/фотографии и дизайн Егине/photo_2026-06-15_09-34-56.jpg`
+- `C:/Users/Admin/Downloads/фотографии и дизайн Егине/photo_2026-06-15_09-35-00.jpg`
+- `C:/Users/Admin/Downloads/IMG_2196.PNG`
+
+Unused provided references for this MVP:
+
+- `photo_2026-06-15_09-35-08.jpg` - alternate portrait.
+- `photo_2026-06-15_09-34-52.jpg` - alternate seated portrait.
+- `photo_2026-06-15_09-33-03.jpg` - design reference.
+- `photo_2026-06-15_09-32-59.jpg` - palette reference.

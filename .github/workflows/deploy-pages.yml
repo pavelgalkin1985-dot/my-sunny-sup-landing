@@ -34,8 +34,7 @@ jobs:
 
       - name: Build
         env:
-          VITE_LEAD_API_URL: https://sup-vk-cloudflare-bot.pavel-galkin-1985.workers.dev/public-site-lead
-          VITE_BASE_PATH: /
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
         run: npm run build
 
       - name: Configure Pages

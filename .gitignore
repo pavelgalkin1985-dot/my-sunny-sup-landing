@@ -38,6 +38,7 @@ skills-lock.json
 !public/images/*.png
 !public/images/
 !public/images/**
+!public-yegine/images/**/*.png
 .venv-notebooklm/
 .notebooklm/
 logs/*.log

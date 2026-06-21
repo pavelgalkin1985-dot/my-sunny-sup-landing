@@ -1,0 +1,10 @@
+{
+  "name": "Егине Унанян",
+  "short_name": "Егине Унанян",
+  "description": "Персональный сайт врача-терапевта, психиатра и психолога Егине Левоновны Унанян.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#fbf7ef",
+  "theme_color": "#fbf7ef"
+}
