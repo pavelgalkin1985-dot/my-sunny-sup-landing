@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "prerender": "node prerender.mjs",
+    "build:prerender": "tsc --noEmit && vite build && node prerender.mjs",
     "build:cloudflare": "tsc --noEmit && vite build --base /",
     "build:pages": "tsc --noEmit && vite build --outDir dist-pages",
     "preview": "vite preview --host 127.0.0.1",
