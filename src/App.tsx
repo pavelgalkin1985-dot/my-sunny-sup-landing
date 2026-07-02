@@ -733,6 +733,7 @@ function App() {
           <a href={PHONE_HREF}>Позвонить</a>
           <a href="/sup-progulki-lazarevskoe/">SUP-прогулки</a>
           <a href="/prokat-sapbordov-lazarevskoe/">Прокат SUP</a>
+          <a href="/sup-dlya-novichkov-lazarevskoe/">SUP новичкам</a>
           <a href={TELEGRAM_CONTACT_HREF}>Telegram</a>
           <a href={MAX_PHONE_HREF}>MAX</a>
           <a href={VK_URL}>VK</a>
