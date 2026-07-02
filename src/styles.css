@@ -713,6 +713,40 @@ h3 {
   background: #09252d;
 }
 
+.faq-section {
+  background:
+    radial-gradient(circle at 84% 16%, rgba(244, 123, 20, 0.14), transparent 26rem),
+    linear-gradient(180deg, #071a20 0%, #061d24 100%);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.faq-card {
+  min-height: 240px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 248, 234, 0.06);
+}
+
+.faq-card h3 {
+  font-size: clamp(22px, 2.2vw, 32px);
+  line-height: 1.08;
+}
+
+.faq-card p {
+  margin: 0;
+  color: rgba(255, 248, 234, 0.82);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -954,7 +988,8 @@ h3 {
   }
 
   .assurance-grid,
-  .fear-grid {
+  .fear-grid,
+  .faq-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1068,7 +1103,8 @@ h3 {
     min-height: 320px;
   }
 
-  .fear-grid {
+  .fear-grid,
+  .faq-grid {
     grid-template-columns: 1fr;
   }
 

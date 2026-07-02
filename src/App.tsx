@@ -140,6 +140,39 @@ const priceRows = [
   ['Йога на SUP', 'Уточняется', 'индивидуально'],
 ] as const;
 
+const faqItems = [
+  {
+    question: 'Можно ли на SUP-прогулку, если я ни разу не стоял на доске?',
+    answer:
+      'Да. Для первого выхода лучше выбирать утро или занятие с инструктором: море обычно спокойнее, а перед стартом объясняем стойку, весло, разворот и безопасное движение у берега.',
+  },
+  {
+    question: 'Где находится прокат SUP в Лазаревском?',
+    answer:
+      'Мы работаем у пляжа “Морской бриз”, ориентир для такси — ул. Одоевского, 93А. Оттуда нужно пройти пешком к морю по набережной.',
+  },
+  {
+    question: 'Сколько стоит SUP-прогулка и прокат доски?',
+    answer:
+      'Утренняя и вечерняя прогулка стоят 1500 ₽ за 1,5 часа. Прокат SUP-доски для уверенных пользователей — 1000 ₽ за 1 час. Индивидуальное занятие с инструктором — 2000 ₽ за 1 час.',
+  },
+  {
+    question: 'Можно ли с детьми?',
+    answer:
+      'Да, подбираем спокойный формат для детей от 7 лет. На воде используем жилеты, темп выбираем по погоде, волне, ветру и уверенности ребёнка.',
+  },
+  {
+    question: 'Когда лучше идти на SUP в Лазаревском?',
+    answer:
+      'Для новичков чаще всего комфортнее утро: мягкий свет, меньше жары и обычно спокойнее море. Закатный формат лучше для атмосферы, фото и неспешной прогулки.',
+  },
+  {
+    question: 'Что делать, если в день прогулки ветер или волна?',
+    answer:
+      'Перед выходом смотрим фактические условия у берега: ветер, волну и безопасность маршрута. Если море не подходит, переносим время или помогаем выбрать другой формат.',
+  },
+] as const;
+
 const serviceOptions = [
   'Утренняя прогулка',
   'Вечерняя прогулка',
@@ -566,6 +599,26 @@ function App() {
           <ImageFrame image={images.map} />
         </section>
 
+        <section className="section faq-section" id="faq" aria-labelledby="faq-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Вопросы туристов</p>
+              <h2 id="faq-title">Перед выходом на воду</h2>
+            </div>
+            <p className="section-lead">
+              Короткие ответы для тех, кто ищет SUP-прогулку, прокат сапборда или занятие с инструктором в Лазаревском и хочет понять условия до заявки.
+            </p>
+          </div>
+          <div className="faq-grid">
+            {faqItems.map((item) => (
+              <article className="faq-card" key={item.question}>
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="lead-section" id="lead" ref={formRef}>
           <div className="lead-intro">
             <img src={logo.src} alt="" aria-hidden="true" />
@@ -678,6 +731,7 @@ function App() {
         </address>
         <div className="footer-actions">
           <a href={PHONE_HREF}>Позвонить</a>
+          <a href="/sup-progulki-lazarevskoe/">SUP-прогулки</a>
           <a href={TELEGRAM_CONTACT_HREF}>Telegram</a>
           <a href={MAX_PHONE_HREF}>MAX</a>
           <a href={VK_URL}>VK</a>
