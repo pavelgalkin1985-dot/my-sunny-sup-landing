@@ -731,6 +731,7 @@ function App() {
         </address>
         <div className="footer-actions">
           <a href={PHONE_HREF}>Позвонить</a>
+          <a href="/sup-progulki-lazarevskoe/">SUP-прогулки</a>
           <a href={TELEGRAM_CONTACT_HREF}>Telegram</a>
           <a href={MAX_PHONE_HREF}>MAX</a>
           <a href={VK_URL}>VK</a>
