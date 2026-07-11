@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "build:cloudflare": "tsc --noEmit && vite build --base /",
-    "build:pages": "tsc --noEmit && vite build --outDir dist-pages",
+    "generate:seo": "node scripts/generate-seo-pages.mjs",
+    "build": "npm run generate:seo && tsc --noEmit && vite build && node scripts/write-analytics-config.mjs dist",
+    "build:cloudflare": "npm run generate:seo && tsc --noEmit && vite build --base / && node scripts/write-analytics-config.mjs dist",
+    "build:pages": "npm run generate:seo && tsc --noEmit && vite build --outDir dist-pages && node scripts/write-analytics-config.mjs dist-pages",
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src functions vite.config.ts"

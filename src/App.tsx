@@ -1,5 +1,6 @@
 import { FormEvent, useMemo, useRef, useState } from 'react';
 import { galleryImages, images, serviceImages, SiteImage } from './data/images';
+import { trackEvent } from './analytics';
 
 type LeadStatus = 'idle' | 'sending' | 'success' | 'error';
 
@@ -194,13 +195,20 @@ function ImageFrame({ image, className = '' }: { image: SiteImage; className?: s
 }
 
 function App() {
-  const [form, setForm] = useState<LeadForm>(initialForm);
+  const [form, setForm] = useState<LeadForm>(() => {
+    const requestedService = new URLSearchParams(window.location.search).get('service');
+    return requestedService && serviceOptions.includes(requestedService as (typeof serviceOptions)[number])
+      ? { ...initialForm, service: requestedService }
+      : initialForm;
+  });
   const [status, setStatus] = useState<LeadStatus>('idle');
   const [message, setMessage] = useState('');
   const formRef = useRef<HTMLElement | null>(null);
+  const formStarted = useRef(false);
   const logo = images.logo;
 
   const selectService = (service: string) => {
+    trackEvent('service_select', { service });
     setForm((current) => ({ ...current, service }));
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -220,6 +228,7 @@ function App() {
 
   const submitLead = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    trackEvent('lead_submit', { service: form.service, people: Number(form.people) || 0 });
     setStatus('sending');
     setMessage('');
 
@@ -232,6 +241,7 @@ function App() {
       const data = (await response.json()) as { ok?: boolean; message?: string };
 
       if (response.ok && data.ok === true) {
+        trackEvent('lead_success', { service: form.service, people: Number(form.people) || 0 });
         setStatus('success');
         setMessage('Заявка отправлена. Мы скоро свяжемся с вами.');
         setForm(initialForm);
@@ -239,9 +249,11 @@ function App() {
       }
 
       setStatus('error');
+      trackEvent('lead_error', { service: form.service, reason: 'api_rejected' });
       setMessage(data.message ?? 'Не удалось отправить заявку.');
     } catch {
       setStatus('error');
+      trackEvent('lead_error', { service: form.service, reason: 'network_error' });
       setMessage('Не удалось отправить заявку.');
     }
   };
@@ -634,7 +646,16 @@ function App() {
               <p>MAX: <a href={MAX_PHONE_HREF}>{MAX_PHONE_DISPLAY}</a></p>
             </div>
           </div>
-          <form className="lead-form" onSubmit={submitLead}>
+          <form
+            className="lead-form"
+            onSubmit={submitLead}
+            onFocus={() => {
+              if (!formStarted.current) {
+                formStarted.current = true;
+                trackEvent('lead_form_start', { service: form.service });
+              }
+            }}
+          >
             <input
               className="spam-field"
               type="text"
@@ -734,6 +755,12 @@ function App() {
           <a href="/sup-progulki-lazarevskoe/">SUP-прогулки</a>
           <a href="/prokat-sapbordov-lazarevskoe/">Прокат SUP</a>
           <a href="/sup-dlya-novichkov-lazarevskoe/">SUP новичкам</a>
+          <a href="/utrennie-sup-progulki-lazarevskoe/">SUP утром</a>
+          <a href="/sup-na-zakate-lazarevskoe/">SUP на закате</a>
+          <a href="/sup-s-detmi-lazarevskoe/">SUP с детьми</a>
+          <a href="/sup-yoga-lazarevskoe/">SUP-йога</a>
+          <a href="/fotosessiya-na-sapah-lazarevskoe/">Фотосессия</a>
+          <a href="/kak-dobratsya-morskoy-briz/">Как добраться</a>
           <a href={TELEGRAM_CONTACT_HREF}>Telegram</a>
           <a href={MAX_PHONE_HREF}>MAX</a>
           <a href={VK_URL}>VK</a>

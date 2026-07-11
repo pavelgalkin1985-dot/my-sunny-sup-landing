@@ -31,6 +31,10 @@ vite.widget.config.ts
 capacitor.config.ts
 docs/
 scripts/
+!scripts/
+scripts/*
+!scripts/generate-seo-pages.mjs
+!scripts/write-analytics-config.mjs
 tools/
 *.ps1
 skills-lock.json

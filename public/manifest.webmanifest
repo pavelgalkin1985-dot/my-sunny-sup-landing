@@ -1,7 +1,7 @@
 {
   "name": "Мой солнечный SUP",
   "short_name": "MY SUPSUN",
-  "description": "SUP-прогулки, прокат сапбордов и туры в Лазаревском",
+  "description": "SUP-прогулки, прокат сапбордов и занятия с инструктором в Лазаревском",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
