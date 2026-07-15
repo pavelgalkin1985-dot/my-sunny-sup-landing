@@ -22,13 +22,17 @@
     window.ym.l = Date.now();
     var ymScript = document.createElement('script');
     ymScript.async = true;
-    ymScript.src = 'https://mc.yandex.ru/metrika/tag.js';
+    ymScript.src = 'https://mc.yandex.ru/metrika/tag.js?id=' + encodeURIComponent(yandexId);
     document.head.appendChild(ymScript);
     window.ym(Number(yandexId), 'init', {
+      ssr: true,
+      webvisor: true,
       clickmap: true,
+      ecommerce: 'dataLayer',
+      referrer: document.referrer,
+      url: location.href,
       trackLinks: true,
       accurateTrackBounce: true,
-      webvisor: true,
     });
   }
 
